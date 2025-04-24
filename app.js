@@ -4,8 +4,8 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 require("dotenv").config();
 
-const authRoutes = require("./routes/authRoutes");
-const taskRoutes = require("./routes/taskRoutes");
+const authRoutes = require("./src/routes/authRoutes");
+const taskRoutes = require("./src/routes/taskRoutes");
 
 // Initialize express app
 const app = express();
