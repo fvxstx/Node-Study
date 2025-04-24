@@ -1,4 +1,5 @@
 const supabase = require("../configs/supabase");
+const UnauthorizedError = require("../utils/Errors/UnauthorizedError");
 
 /**
  * Authentication middleware to protect routes
@@ -10,10 +11,7 @@ const authenticateUser = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({
-        success: false,
-        message: "Authorization token required",
-      });
+      throw new UnauthorizedError("Authorization token required");
     }
 
     const token = authHeader.split(" ")[1];
@@ -25,10 +23,7 @@ const authenticateUser = async (req, res, next) => {
     } = await supabase.auth.getUser(token);
 
     if (error) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid or expired token",
-      });
+      throw new UnauthorizedError("Invalid or expired token");
     }
 
     // Add user to request object
@@ -36,10 +31,7 @@ const authenticateUser = async (req, res, next) => {
     next();
   } catch (error) {
     console.error("Auth middleware error:", error);
-    res.status(500).json({
-      success: false,
-      message: "Authentication error",
-    });
+    next(error);
   }
 };
 
