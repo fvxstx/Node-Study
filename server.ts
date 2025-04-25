@@ -1,4 +1,4 @@
-const app = require("./app");
+import app from "./app"; // Import the express app
 
 const PORT = process.env.PORT || 3000;
 

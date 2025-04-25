@@ -1,71 +1,81 @@
-const supabase = require("../configs/supabase");
-const { validationResult } = require("express-validator");
-const taskService = require("../services/tasksService");
-
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteTask = exports.updateTask = exports.createTask = exports.getTaskById = exports.getTasks = void 0;
+const tasksService_1 = __importDefault(require("../services/tasksService"));
 /**
  * Get all tasks for current user
  */
-const getTasks = async (req, res, next) => {
-  try {
-    const tasks = await taskService.getAll(req);
-    res.json(tasks);
-  } catch (error) {
-    next(error);
-  }
-};
-
+const getTasks = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const tasks = yield tasksService_1.default.getAll(req);
+        res.json(tasks);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.getTasks = getTasks;
 /**
  * Get a single task by ID
  */
-const getTaskById = async (req, res, next) => {
-  try {
-    const task = await taskService.getById(req);
-    res.json(task);
-  } catch (error) {
-    next(error);
-  }
-};
-
+const getTaskById = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const task = yield tasksService_1.default.getById(req);
+        res.json(task);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.getTaskById = getTaskById;
 /**
  * Create a new task
  */
-const createTask = async (req, res, next) => {
-  try {
-    const task = await taskService.create(req, res);
-    res.status(201).json(task);
-  } catch (error) {
-    next(error);
-  }
-};
-
+const createTask = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const task = yield tasksService_1.default.create(req);
+        res.status(201).json(task);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.createTask = createTask;
 /**
  * Update an existing task
  */
-const updateTask = async (req, res) => {
-  try {
-    const tasks = await taskService.update(req);
-    res.json(tasks);
-  } catch (error) {
-    next(error);
-  }
-};
-
+const updateTask = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const tasks = yield tasksService_1.default.update(req);
+        res.json(tasks);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.updateTask = updateTask;
 /**
  * Delete a task
  */
-const deleteTask = async (req, res) => {
-  try {
-    const task = await taskService.delete(req);
-    res.json(task);
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports = {
-  getTasks,
-  getTaskById,
-  createTask,
-  updateTask,
-  deleteTask,
-};
+const deleteTask = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const task = yield tasksService_1.default.delete(req);
+        res.json(task);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.deleteTask = deleteTask;
