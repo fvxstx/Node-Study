@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./src/configs/swagger";
+
 require("dotenv").config();
 
 import authRoutes from "./src/routes/authRoutes";
@@ -15,6 +18,7 @@ app.use(helmet()); // Security headers
 app.use(cors()); // Enable CORS
 app.use(morgan("dev")); // HTTP request logger
 app.use(express.json()); // Parse JSON bodies
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
 app.use("/api/auth", authRoutes);
