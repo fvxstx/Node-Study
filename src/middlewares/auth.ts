@@ -1,6 +1,15 @@
 import { NextFunction, Request, Response } from "express";
 import supabase from "../configs/supabase";
 import UnauthorizedError from "../utils/Errors/UnauthorizedError";
+import { IUser } from "../types/IUser";
+
+declare global {
+  namespace Express {
+    interface Request {
+      user: IUser;
+    }
+  }
+}
 
 /**
  * Authentication middleware to protect routes
